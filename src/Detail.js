@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
+import {Nav} from 'react-bootstrap';
 
 let Box = styled.div`
   padding : 20px;
@@ -25,6 +26,7 @@ function Detail(props) {
     let [msg, setMsg] = useState(true);
     let [count, setCount] = useState(0);
     let [num, setNum] = useState('');
+    let [tabchg, setTabChg] = useState(0);
 
     useEffect(()=>{
         let a = setTimeout(()=>{
@@ -76,8 +78,33 @@ function Detail(props) {
                     <button className="btn btn-danger">주문하기</button> 
                 </div>
             </div>
+            <Nav variant="tabs" defaultActiveKey="link0">
+                <Nav.Item>
+                <Nav.Link eventKey="link0" onClick={()=>{setTabChg(0)}}>버튼0</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                <Nav.Link eventKey="link1" onClick={()=>{setTabChg(1)}}>버튼1</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                <Nav.Link eventKey="link2" onClick={()=>{setTabChg(2)}}>버튼2</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            <TabView tabchg={tabchg}></TabView>
         </div> 
     )
+}
+
+function TabView({tabchg}) {
+    /*
+    if (tabchg==0) {
+        return <div>내용0</div>
+    } else if (tabchg==1) {
+        return <div>내용1</div>
+    } else if (tabchg==2) {
+        return <div>내용2</div>
+    }
+    */
+   return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tabchg];
 }
 
 /*

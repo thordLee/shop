@@ -56,6 +56,24 @@ function App() {
                 </Row>
             </Container>
             </div>
+            <button onClick={()=>{
+              //로딩  UI 
+              axios.get('http://reacttest.didimu.xyz/shop/data2.php')
+              .then((result)=>{
+                console.log(result.data)
+                let shoesCopy = [...shoes, ...result.data];// ...는 대괄호를 벗기는 역할
+                setShoes(shoesCopy)
+                //로딩 감추기
+              })
+              .catch(()=>{
+                //로딩 숨기기
+                console.log('실패함')
+              })
+              //데이터를 보낼때는 axios.post('url', {aa:aa})
+              //여러개를 할때는 Promise.all([axios.get(), axios.get()]).then(()=>{}) 이런식으로
+
+            }}>더보기</button>
+
           </>
 
         }></Route>
@@ -74,23 +92,7 @@ function App() {
         <Route path="*" element={<div>없는페이지입니다.</div>}></Route>{/*404 페이지*/}
       </Routes>
 
-      <button onClick={()=>{
-        //로딩  UI 
-        axios.get('http://reacttest.didimu.xyz/shop/data2.php')
-        .then((result)=>{
-          console.log(result.data)
-          let shoesCopy = [...shoes, ...result.data];// ...는 대괄호를 벗기는 역할
-          setShoes(shoesCopy)
-          //로딩 감추기
-        })
-        .catch(()=>{
-          //로딩 숨기기
-          console.log('실패함')
-        })
-        //데이터를 보낼때는 axios.post('url', {aa:aa})
-        //여러개를 할때는 Promise.all([axios.get(), axios.get()]).then(()=>{}) 이런식으로
 
-      }}>더보기</button>
 
     </div>
   );
